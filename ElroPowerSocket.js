@@ -6,21 +6,17 @@ const PowerSocket = require('dark-horse-thing/device/PowerSocket')
 const RawElroPowerSocket = require('mediola-aio-gateway/ElroPowerSocket')
 
 class ElroPowerSocket extends PowerSocket {
-  constructor (iri, type, deviceUrl, gateway) {
-    super(iri, type)
+  constructor (iri, config) {
+    super(iri, {type: config.type})
 
-    this._gateway = gateway || new Gateway(url.resolve(deviceUrl, '..'))
-    this._device = new RawElroPowerSocket(this._gateway, deviceUrl.split('/').pop())
+    this._gateway = new Gateway(url.resolve(config.endpoint, '..'))
+    this._device = new RawElroPowerSocket(this._gateway, config.endpoint.split('/').pop())
   }
 
   put (input) {
     super.put(input)
 
-    let json = {
-      state: input.state.iri().toString()
-    }
-
-    return this._device.put(json)
+    return this._device.put(input)
   }
 }
 
