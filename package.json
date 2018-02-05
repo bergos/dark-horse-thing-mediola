@@ -21,7 +21,7 @@
   "homepage": "https://github.com/bergos/dark-horse-thing-mediola",
   "dependencies": {
     "dark-horse-thing": "git://github.com/bergos/dark-horse-thing.git#master",
-    "mediola-aio-gateway": "^0.1.1"
+    "mediola-aio-gateway": "^0.1.2"
   },
   "devDependencies": {
     "standard": "^7.1.2"
