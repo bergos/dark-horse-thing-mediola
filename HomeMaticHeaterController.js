@@ -13,16 +13,24 @@ class HomeMaticHeaterController extends HeaterController {
     this._device = new RawHomeMaticHeaterController(this._gateway, config.endpoint.split('/').pop())
   }
 
-  get () {
-    return this._device.get().then((result) => {
-      this.lowBatteryPower = result.lowBatteryPower
-      this.desiredTemperature = result.desiredTemperature
-      this.humidity = result.humidity
-      this.temperature = result.temperature
-      this.valve = result.valve
+  async get () {
+    const result = await this._device.get()
 
-      return this
-    })
+    this.lowBatteryPower = result.lowBatteryPower
+    this.desiredTemperature = result.desiredTemperature
+    this.humidity = result.humidity
+    this.temperature = result.temperature
+    this.valve = result.valve
+
+    return this
+  }
+
+  async put (input) {
+    this.desiredTemperature = input.desiredTemperature
+
+    await this._device.put(input)
+
+    return this.get()
   }
 }
 
