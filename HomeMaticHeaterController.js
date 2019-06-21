@@ -26,9 +26,9 @@ class HomeMaticHeaterController extends HeaterController {
   }
 
   async put (input) {
-    this.desiredTemperature = input.desiredTemperature
+    this.desiredTemperature = parseFloat(input.desiredTemperature)
 
-    await this._device.put(input)
+    await this._device.put(this)
 
     return this.get()
   }
